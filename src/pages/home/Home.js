@@ -1,10 +1,9 @@
-import './Home.css'
+import styles from './Home.module.css'
 
-import { useParams } from 'react-router-dom'
 
 export default function Home() {
-  const {id}=useParams();
+  
   return (
-    <div>Home: {id}</div>
+    <div>Home:</div>
   )
 }
