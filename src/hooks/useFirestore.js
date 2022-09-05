@@ -16,6 +16,8 @@ const firestoreReducer=(state,action)=>{
             return {err:null,isPending:false,document:action.payload,success:true}
         case 'ERROR':
             return{isPending:false, document:null, sucess:false, error:action.payload}
+        case 'REMOVED_DOCUMENT':
+            return{isPending:false, document:action.payload,success:true,error:null}
         default:
             return state
     }
@@ -46,6 +48,14 @@ export const useFirestore=(collection)=>{
     }
     //delete a document
     const deleteDocument=async(id)=>{
+        dispatch({type:'IS_PENDING'});
+        try{
+            const deletedDoc=await ref.doc(id).delete();
+            dispatchIfNotCancelled({type:'REMOVED_DOCUMENT',payload:deletedDoc})
+        }catch(err){
+            dispatchIfNotCancelled({type:"ERROR",payload:err.message})
+
+        }
 
     }
     //cleanup function so state is not modified if page is no longer loaded
