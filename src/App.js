@@ -4,11 +4,14 @@ import Login from './pages/login/Login';
 import Signup from './pages/signup/Signup'
 import Home from './pages/home/Home';
 import Navbar from './components/navbar/Navbar';
+import {useAuthContext} from './hooks/useAuthContext'
 
 
 function App() {
+  const {authIsReady}=useAuthContext();
   return (
     <div className="App">
+      {authIsReady &&(
       <BrowserRouter>
       <Navbar/>
       <Switch>
@@ -27,6 +30,7 @@ function App() {
        
       
       </BrowserRouter>
+      )}
       
     </div>
   );
